@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:100,300,400" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <title>paper works new</title>
+
+</head>
+
+<body>
+  <div id="app">
+    <div id="header">
+      <p id="logo">paper works</p>
+      <!-- 表示領域 -->
+      <div id="display">
+        <div id="display-title"></div>
+        <div id="display-date"></div>
+        <div id="display-body"></div>
+        <div id="display-icon"></div>
+      </div>
+    </div>
+    <select v-model="selectedCategory" v-on:change="pickItems" id="select-category">
+      <option v-for="option in options" v-bind:value="option.value">
+        {{ option.category }}</option>
+    </select>
+    <!-- リスト表示領域 -->
+    <div id="list">
+      <template v-model="shownItems">
+        <ul id="items" style="list-style-type: none;" v-model="shownItems">
+          <li v-for='item in shownItems' :class='item.category' :key='item.id' :data-id='item.id'>
+            <div class="item-title">{{ item.title }}</div>
+            <div class="item-body">
+              <img v-for='path in item.imgPaths' :src='"./img/"+path'>
+              <br>
+              <a v-for='url in item.urls' :href='url' target="_blank" style="display:block;">{{ url }}</a>
+            </div>
+          </li>
+        </ul>
+      </template>
+    </div>
+
+    <img id="arrow" src="./img/arrow.png" alt="">
+  </div>
+
+  <!-- 
+        ソート機能 
+        ・カテゴリー　iOS, Web, Space, Flower 
+        ・日付
+    -->
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="./data.js"></script>
+  <script src="./main.js"></script>
+
+</body>
+
+</html>
